@@ -66,7 +66,7 @@ export default function ReviewResult() {
       <div className="mx-auto max-w-6xl px-6 py-12 lg:px-8">
 
         {/* HEADER */}
-        {/* <section className="mb-8 flex flex-col justify-between gap-6 border-b border-[#D8E1EA] pb-8 md:flex-row md:items-end">
+        <section className="mb-8 flex flex-col justify-between gap-6 border-b border-[#D8E1EA] pb-8 md:flex-row md:items-end">
 
           <div>
             <div className="mb-4 flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.16em] text-[#3B82F6]">
@@ -93,10 +93,9 @@ export default function ReviewResult() {
             Review Again
           </button>
 
-        </section> */}
+        </section>
 
-
-        {/* <section className="grid gap-4 lg:grid-cols-[1.5fr_1fr_1fr]">
+        <section className="grid gap-4 lg:grid-cols-[1.5fr_1fr_1fr]">
 
           <div className="rounded-xl border border-[#D8E1EA] bg-white p-6 shadow-sm">
             <div className="flex items-center gap-6">
@@ -137,7 +136,7 @@ export default function ReviewResult() {
             progress={reviewData.atsScore}
           />
 
-        </section> */}
+        </section>
 
 
         {/* SUMMARY + CV */}
@@ -437,7 +436,7 @@ function Panel({
   children: React.ReactNode;
 }) {
   return (
-    <section className="rounded-xl border border-[#D8E1EA] bg-white shadow-sm">
+    <section className="rounded-xl  border border-[#D8E1EA] bg-white  shadow-sm">
 
       <PanelHeader icon={icon} title={title} />
 

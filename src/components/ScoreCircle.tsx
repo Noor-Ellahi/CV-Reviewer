@@ -1,5 +1,5 @@
 
-export function ScoreCircle({ score }: { score: number }) {
+export function ScoreCircle({ score  }: { score: number | any }) {
   return (
     <div
       className="relative flex h-28 w-28 shrink-0 items-center justify-center rounded-full"

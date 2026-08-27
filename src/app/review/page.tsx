@@ -20,20 +20,62 @@ interface ProSectiom {
   projects: boolean,
 }
 interface Keyword {
-  contains : string[],
+  contains: string[],
   missing: string[]
 }
 interface Gram {
-  errors : string[],
-  suggestions :string[]
+  errors: string[],
+  suggestions: string[]
 }
 
-export interface ResumeHolder {
-  overallScore: number,
-  atsScore: number,
-  jobMatch: number,
+interface Points {
+  score: number,
+  title: string,
+  point: string
+}
 
-  strengths:string[],
+interface ImpInfo {
+  jobRole : string,
+  companyName :string,
+  pdfName :string
+}
+
+interface Improve {
+  topics:
+  {
+    title: string,
+    points: string[]
+  }[]
+}
+
+interface Requirements{
+  matched :{
+    skill : string ,
+    pointAboutSkill : string
+  }[],
+  partial :{
+    skill : string ,
+    pointAboutSkill : string
+  }[],
+  missing :{
+    skill : string ,
+    pointAboutSkill : string
+  }[],
+
+}
+
+
+export interface ResumeHolder {
+  // overallScore: number,
+  // atsScore: number,
+  // jobMatch: number,
+
+  overallScore: Points,
+  atsScore: Points,
+  jobMatch: Points
+
+
+  strengths: string[],
   weaknesses: string[],
   // missingKeywords: z.array(z.string()),
   suggestions: string[],
@@ -41,12 +83,20 @@ export interface ResumeHolder {
   summary: string,
   harshTone: string,
 
-  keywords : Keyword,
-  professionalSectionWise : ProSectiom,
-  experience : MatchDetails,
-  grammar : Gram,
+  keywords: Keyword,
+  professionalSectionWise: ProSectiom,
+  experience: MatchDetails,
+  grammar: Gram,
 
-  improvements : string[]
+  improvements: Improve,
+
+
+  impInfo : ImpInfo,
+
+  jobRequirements : Requirements
+
+
+  roastHimBadly : string
 
 }
 
@@ -99,7 +149,7 @@ export default function UploadPage() {
 
       {/* <ResultComponent/> */}
 
-      {/* <ReviewResult/> */}
+      <ReviewResult />
 
 
       {/*  onSkip={()=>console.log('1')} */}
@@ -117,7 +167,7 @@ export default function UploadPage() {
           ) : null
       }
 
-      <button onClick={()=> console.log(cvData)}>CLICK ME</button>
+      <button onClick={() => console.log(cvData)}>CLICK ME</button>
     </main>
   );
 }

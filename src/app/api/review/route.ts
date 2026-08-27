@@ -66,9 +66,27 @@ export async function POST(req: Request) {
 The JSON must have exactly these fields:
 
 {
-  "overallScore": number,
-  "atsScore": number,
-  "jobMatch": number,
+//   "overallScore": number,
+//   "atsScore": number,
+//   "jobMatch": number,
+
+        "overallScore" : {
+        score : number,
+        title : string,
+        point : string
+        }
+          "atsScore" : {
+        score : number,
+        title : string,
+        point : string
+        }
+          "jobMatch" : {
+        score : number,
+        title : string,
+        point : string
+        }
+
+
   "strengths": string[],
   "weaknesses": string[],
 //   "missingKeywords": string[],
@@ -100,11 +118,51 @@ The JSON must have exactly these fields:
     },
 
     
-    "improvements" : string[]
+    // "improvements" : string[]
+
+    "improvements" : {
+        topics : [
+        {
+            title : string,
+            points : string[]
+        }
+    ]
+    },
+
+    impInfo : {
+        jobRole : string,
+        companyName : string,
+        pdfName : string,
+    }
+    
+    jobRequirements : {
+        matched : [
+        {
+            skill : string
+            pointAboutSkill : string
+        }
+        ],
+         partial : [
+        {
+             skill : string
+            pointAboutSkill : string
+        }
+        ],
+        missing : [
+        {
+             skill : string
+            pointAboutSkill : string
+        }
+        ],
+    },
+
+    "roastHimBadly" : string
   }
 
 Scores must be numbers from 0 to 100.
 Do not include any additional fields.
+In improvements always try to give 3 topics with 1 title and 1 point.
+And for jobRequirements try to give skill as in React, Next etc and for point give a point about the skill related to CV
 
 
 

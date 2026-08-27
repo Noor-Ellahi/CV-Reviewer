@@ -8,8 +8,8 @@ export function MetricCard({
   icon: React.ReactNode;
   label: string;
   value: string;
-  note: string;
-  progress: number;
+  note?: string;
+  progress?: number;
 }) {
   return (
     <div className="rounded-xl border border-[#D8E1EA] bg-white p-6 shadow-sm">
