@@ -1,0 +1,160 @@
+// import "server-only"
+
+// Text extraction libraries
+import { pdfToText } from "pdf-ts"
+import officeParser from "officeparser";
+
+
+// llm imports
+import { GoogleGenAI } from "@google/genai";
+import { reviewSchema } from "@/lib/cv-review/cv-review";
+
+// Review Schema
+
+
+// Initialize the GoogleGenAI client
+const LLM = new GoogleGenAI({
+    apiKey: process.env.GOOG_AI_API,
+})
+
+
+
+export async function POST(req: Request) {
+    try {
+        // const body = await req.json();
+        // const {file, text} = body;
+
+        const formData = await req.formData();
+        const file = formData.get("file");
+        const jobDescription = formData.get("jobDescription");
+        let extractedText = "";
+
+        if (!(file instanceof File)) {
+            return new Response("Invalid file", { status: 400 });
+        }
+        // console.log("File:", file);
+        // console.log("Job Description:", jobDescription);
+
+        const arrayBuffer = await file.arrayBuffer();
+        const buffer = Buffer.from(arrayBuffer);
+
+        if (file.name.endsWith(".pdf")) {
+            extractedText = await pdfToText(buffer);
+        }
+        else if (file.name.endsWith(".docx")) {
+            const ast = await officeParser.parseOffice(buffer);
+            const { value } = await ast.to('text');
+            extractedText = value;
+        }
+        else {
+            return new Response("Unsupported file type", { status: 400 });
+        }
+
+
+        const resumeText = extractedText;
+
+        const prompt = `
+        You are an expert technical recruiter.
+        Analyze this CV against the following job description.
+        
+        CV: ${resumeText}
+
+        Job Description: ${jobDescription}
+
+        Return your response as JSON.
+
+The JSON must have exactly these fields:
+
+{
+  "overallScore": number,
+  "atsScore": number,
+  "jobMatch": number,
+  "strengths": string[],
+  "weaknesses": string[],
+//   "missingKeywords": string[],
+  "suggestions": string[],
+    "summary": string,
+    "harshTone": string,
+
+    "keywords" :{
+        contains : string[],
+        missing : string[]
+    },
+    "professionalSectionWise" : {
+    summary :boolean,    
+    experience : boolean,
+        education : boolean, 
+        skills : boolean,
+        projects : boolean
+
+
+    },  
+
+    "experience" : {
+        required : string[],
+        missing : string[]
+    },
+    "grammar" : {
+    errors : string[],
+    suggestions : string[]
+    },
+
+    
+    "improvements" : string[]
+  }
+
+Scores must be numbers from 0 to 100.
+Do not include any additional fields.
+
+
+
+
+        `
+
+        // Resume review prompt
+        const response = await LLM.models.generateContent({
+            model: "gemini-3.1-flash-lite",
+            contents: prompt,
+        })
+
+
+        console.log("========== AI RESPONSE ==========");
+        console.dir(response, { depth: null });
+        console.log("=================================");
+
+
+
+        let resText = response.candidates?.[0]?.content?.parts?.[0]?.text;
+
+        if (!resText) {
+            throw new Error("No AI response text found");
+        }
+
+
+        resText = resText
+            .replace(/^```json\s*/, "")
+            .replace(/\s*```$/, "")
+            .trim();
+
+        const jonText = JSON.parse(resText);
+
+
+
+
+        const validate = reviewSchema.parse(jonText);
+
+
+
+
+        return new Response(
+            JSON.stringify({ data: validate }),
+            { status: 200 }
+        )
+    }
+    catch (err) {
+
+        console.error("Error:", err);
+        return new Response("Error", { status: 500 })
+
+    }
+}
