@@ -7,7 +7,7 @@ import { ArrowRight } from "lucide-react";
 export default function Hero() {
   return (
     <section className="bg-white">
-      <div className="mx-auto max-w-5xl px-6 pt-20 pb-28 text-center sm:pt-20">
+      <div className="mx-auto max-w-5xl px-6 pt-20 pb-15 text-center sm:pt-20">
         <div className="flex flex-col items-center">
 
           {/* Label */}

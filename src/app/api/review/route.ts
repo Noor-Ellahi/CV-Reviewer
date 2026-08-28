@@ -124,7 +124,7 @@ The JSON must have exactly these fields:
         topics : [
         {
             title : string,
-            points : string[]
+            points : string
         }
     ]
     },

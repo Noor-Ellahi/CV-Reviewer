@@ -210,7 +210,7 @@ export function Improvement({
 }: {
   number: string;
   title: string | undefined; 
-  description: string[] | undefined;
+  description: string | undefined;
 }) {
   return (
     <div className="rounded-lg border border-[#D8E1EA] bg-[#F8FAFC] p-5">

@@ -60,7 +60,8 @@ export const reviewSchema = z.object({
         topics: z.array(
             z.object({
                 title: z.string(),
-                points: z.array(z.string())
+                // points: z.array(z.string())
+                points : z.string()
             })
         )
     }),

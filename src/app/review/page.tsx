@@ -2,6 +2,8 @@
 
 
 import ReviewResult from "@/components/ActReview/ActReview";
+import Footer from "@/components/Footer/Footer";
+import HowItWorks from "@/components/HowItWorks";
 import LoadingScreen from "@/components/LoadingScreen/LoadingScreen";
 import Navbar from "@/components/Navbar/Navbar";
 import { ResultComponent } from "@/components/ResultComponent/ResultComponent";
@@ -35,31 +37,31 @@ interface Points {
 }
 
 interface ImpInfo {
-  jobRole : string,
-  companyName :string,
-  pdfName :string
+  jobRole: string,
+  companyName: string,
+  pdfName: string
 }
 
 interface Improve {
   topics:
   {
     title: string,
-    points: string[]
+    points: string
   }[]
 }
 
-interface Requirements{
-  matched :{
-    skill : string ,
-    pointAboutSkill : string
+interface Requirements {
+  matched: {
+    skill: string,
+    pointAboutSkill: string
   }[],
-  partial :{
-    skill : string ,
-    pointAboutSkill : string
+  partial: {
+    skill: string,
+    pointAboutSkill: string
   }[],
-  missing :{
-    skill : string ,
-    pointAboutSkill : string
+  missing: {
+    skill: string,
+    pointAboutSkill: string
   }[],
 
 }
@@ -91,12 +93,12 @@ export interface ResumeHolder {
   improvements: Improve,
 
 
-  impInfo : ImpInfo,
+  impInfo: ImpInfo,
 
-  jobRequirements : Requirements
+  jobRequirements: Requirements
 
 
-  roastHimBadly : string
+  roastHimBadly: string
 
 }
 
@@ -107,28 +109,7 @@ export default function UploadPage() {
   const [loadCounter, setLoadCounter] = useState<number>(0)
   const [currentComponent, setCurrentComponent] = useState('')
 
-  // const fileRef = useRef<HTMLInputElement | null>(null)
-  // const textRef = useRef<HTMLTextAreaElement | null>(null)
 
-  // const review = async () => {
-  //   const file = fileRef.current?.files?.[0];
-  //   const text = textRef.current?.value;
-
-  //   console.log("File:", file);
-  //   console.log("Text:", text);
-
-  //   const formData = new FormData();
-  //   if (file) formData.append("file", file);
-  //   if (text) formData.append("jobDescription", text);
-
-  //   try {
-  //     const res = await axios.post("/api/review", formData);
-  //     console.log("Response:", res.data);
-  //   }
-  //   catch (err: any) {
-  //     console.error("Error:", err);
-  //   }
-  // }
 
 
 
@@ -136,20 +117,24 @@ export default function UploadPage() {
 
   return (
     <main className="min-h-[calc(100vh-80px)] bg-white">
-      <Navbar />
+      {/* <Navbar /> */}
 
       {
         currentComponent === "" ?
           (
-            <UploadComp setCvData={setCvData} component={setCurrentComponent} count={loadCounter} setCount={setLoadCounter} />
-
+            <>
+              <Navbar />
+              <UploadComp setCvData={setCvData} component={setCurrentComponent} count={loadCounter} setCount={setLoadCounter} />
+              <HowItWorks/>
+              <Footer />
+            </>
           )
           : null
       }
 
       {/* <ResultComponent/> */}
 
-      <ReviewResult />
+      {/* <ReviewResult /> */}
 
 
       {/*  onSkip={()=>console.log('1')} */}
@@ -163,7 +148,11 @@ export default function UploadPage() {
       {
         currentComponent === "result" ?
           (
-            <ResultComponent cvData={cvData} />
+            <>
+              <Navbar />
+              <ResultComponent cvData={cvData} />
+              <Footer />
+            </>
           ) : null
       }
 
