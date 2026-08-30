@@ -3,6 +3,7 @@
 
 import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
+import Link from "next/link";
 
 export default function Hero() {
   return (
@@ -23,32 +24,38 @@ export default function Hero() {
 
           {/* Description */}
           <p className="mt-6 max-w-2xl text-lg leading-8 text-gray-600 sm:text-xl">
-            Upload your CV, add the role you want, and see what stands
+            {/* Upload your CV, add the role you want, and see what stands
             between you and your next interview.{" "}
             <span className="text-gray-500">
               MatchAJob highlights your strongest matches and gives you
               practical ways to improve.
-            </span>
+            </span> */}
+
+            MatchAJob is free to use. Upload your CV, paste a job description,
+            and get an AI-powered review without paying for another subscription.
           </p>
 
           {/* Buttons */}
           <div className="mt-9 flex flex-col gap-3 sm:flex-row">
 
             {/* Primary */}
-            <button
-              className="group flex items-center justify-center gap-2 rounded-xl
+            <Link href={'/review'}>
+              <button
+                className="group flex items-center justify-center gap-2 rounded-xl
               bg-[#123B5D] px-7 py-4 text-sm font-semibold text-white
               shadow-lg shadow-[#123B5D]/15
               transition-all duration-200
               hover:-translate-y-0.5 hover:bg-[#0D2E49]
               hover:shadow-xl hover:shadow-[#123B5D]/20"
-            >
-              Review Your CV
-              <ArrowRight
-                size={17}
-                className="transition-transform duration-200 group-hover:translate-x-1"
-              />
-            </button>
+
+              >
+                Review Your CV
+                <ArrowRight
+                  size={17}
+                  className="transition-transform duration-200 group-hover:translate-x-1"
+                />
+              </button>
+            </Link>
 
             {/* Secondary */}
             <button

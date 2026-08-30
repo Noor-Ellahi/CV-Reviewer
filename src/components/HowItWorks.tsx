@@ -27,7 +27,7 @@ function HowItWorks() {
   ];
 
   return (
-    <section className="mx-auto max-w-5xl px-6 py-16">
+    <section className="mx-auto max-w-5xl px-6 py-16 pb-35" id="target-section">
       <div className="text-center">
         <p className="text-sm font-semibold text-[#3B82F6]">
           HOW IT WORKS

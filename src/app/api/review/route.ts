@@ -19,6 +19,52 @@ const LLM = new GoogleGenAI({
 
 
 
+async function validation(jD: string, cV: string) {
+
+
+    const prompt = `
+You are an input validator for an AI CV reviewer.
+
+Determine whether each input is valid.
+
+CV:
+${cV}
+
+Job Description:
+${jD}
+
+Return ONLY JSON:
+
+{
+  "isValidCV": boolean,
+  "cvReason": string,
+  "isValidJobDescription": boolean,
+  "jobDescriptionReason": string
+}
+`;
+
+
+    const res = await LLM.models.generateContent({
+        model: "gemini-3.1-flash-lite",
+        contents: prompt,
+    })
+
+    let text = res.candidates?.[0]?.content?.parts?.[0]?.text;
+
+    if (!text) {
+        throw new Error("No validation response from AI");
+    }
+
+    text = text
+        .replace(/^```json\s*/, "")
+        .replace(/\s*```$/, "")
+        .trim();
+
+    return JSON.parse(text);
+
+}
+
+
 export async function POST(req: Request) {
     try {
         // const body = await req.json();
@@ -51,7 +97,34 @@ export async function POST(req: Request) {
         }
 
 
+        if (typeof jobDescription !== "string" || jobDescription.trim().length < 50) {
+            return new Response(
+                JSON.stringify({
+                    error: "Please enter a valid job description."
+                }),
+                {
+                    status: 400,
+                    headers: { "Content-Type": "application/json" }
+                }
+
+
+            );
+        }
+
+
         const resumeText = extractedText;
+
+
+        if (!resumeText || resumeText.trim().length < 300) {
+            return new Response(
+                JSON.stringify({
+                    error: "The uploaded files doesnot contain a CV with enough words. Lol"
+                }),
+                {
+                    status: 400,
+                }
+            )
+        }
 
         const prompt = `
         You are an expert technical recruiter.
@@ -212,7 +285,7 @@ And for jobRequirements try to give skill as in React, Next etc and for point gi
     catch (err) {
 
         console.error("Error:", err);
-        return new Response("Error", { status: 500 })
+        return new Response(JSON.stringify({ error: err }), { status: 500 })
 
     }
 }

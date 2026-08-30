@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 function Footer() {
   return (
     <footer className="border-t border-[#D8E1EA] bg-white">
@@ -17,18 +19,18 @@ function Footer() {
         {/* Links */}
         <div className="flex items-center gap-6 text-sm text-gray-500">
           <a
-            href="#how-it-works"
+            href="#target-section"
             className="transition hover:text-[#003266]"
           >
             How it works
           </a>
 
-          <a
-            href="#review"
+          <Link
+            href="/review"
             className="transition hover:text-[#003266]"
           >
             Review CV
-          </a>
+          </Link>
 
           <a
             href="#"

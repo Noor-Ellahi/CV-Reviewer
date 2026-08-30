@@ -22,7 +22,7 @@ export const ResultComponent = (
         <main className="min-h-screen bg-[#F8FAFC] text-[#17324D]">
             <div className="mx-auto max-w-6xl px-6 py-12 lg:px-8">
 
-                <section onClick={() => console.log(cvData)} className="mb-8 pt-10 flex flex-col justify-between gap-6 border-b border-[#D8E1EA] pb-8 md:flex-row md:items-end">
+                <section className="mb-8 pt-10 flex flex-col justify-between gap-6 border-b border-[#D8E1EA] pb-8 md:flex-row md:items-end">
 
                     <div>
                         <div className="mb-4 flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.16em] text-[#3B82F6]">
@@ -43,7 +43,7 @@ export const ResultComponent = (
                         </p>
                     </div>
 
-                    <button
+                    {/* <button
                         className="inline-flex items-center justify-center gap-2 rounded-lg
             border border-[#C9D5E0] bg-white px-4 py-2.5
             text-sm font-semibold text-[#17324D]
@@ -51,7 +51,7 @@ export const ResultComponent = (
                     >
                         <RefreshCw className="h-4 w-4" />
                         Review Again
-                    </button>
+                    </button> */}
 
                 </section>
 

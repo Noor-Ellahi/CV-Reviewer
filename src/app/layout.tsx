@@ -29,8 +29,10 @@
 // }
 
 
+
 import type { Metadata, Viewport } from 'next'
 import './globals.css'
+import { Toaster } from 'sonner'
 
 export const metadata: Metadata = {
   title: 'MatchAJob — Find the match in your CV',
@@ -72,6 +74,8 @@ export default function RootLayout({
     <html lang="en" className="bg-background">
       <body className="font-sans antialiased">
         {children}
+
+        <Toaster position='top-right'/>
         
       </body>
     </html>

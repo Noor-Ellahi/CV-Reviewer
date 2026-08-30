@@ -11,17 +11,20 @@ import {
 import axios from "axios";
 import { ResumeHolder } from "@/app/review/page";
 
+import { toast } from "sonner";
+
+
 type States = {
     component: Dispatch<SetStateAction<string>>,
     count: number,
     setCount: Dispatch<SetStateAction<number>>
 
-    setCvData : Dispatch<SetStateAction<ResumeHolder |null>>
+    setCvData: Dispatch<SetStateAction<ResumeHolder | null>>
 }
 
 const UploadComp = (
 
-    { component, count, setCount , setCvData }: States
+    { component, count, setCount, setCvData }: States
 ) => {
 
     // const fileInputRef = useRef<HTMLInputElement>(null);
@@ -66,11 +69,13 @@ const UploadComp = (
         event: React.FormEvent<HTMLFormElement>
     ) => {
         event.preventDefault()
-        
+
         component('Loading')
 
 
         const file = fileRef.current?.files?.[0];
+
+
         const text = jobDescription;
 
         console.log("File:", file);
@@ -78,36 +83,47 @@ const UploadComp = (
 
         const formData = new FormData();
         if (file) formData.append("file", file);
+        else { toast.error("Please select a File") }
         if (text) formData.append("jobDescription", text);
 
 
         console.log(formData)
         try {
-            await new Promise(resolve => setTimeout(resolve,500))
+            await new Promise(resolve => setTimeout(resolve, 500))
             setCount(1)
 
-            await new Promise(resolve => setTimeout(resolve,500))
+            await new Promise(resolve => setTimeout(resolve, 500))
             setCount(2)
 
 
-            const res = await axios.post("/api/review", formData);
-            console.log("Response:", res.data);
+            const res = await axios.post("/api/review", formData,
+
+            );
+            // console.log("Response:", res.data);
             setCvData(res.data.data)
             if (fileRef.current) {
                 fileRef.current.value = "";
             }
             setJobDescription('')
 
-            await new Promise(resolve => setTimeout(resolve,700))
+            await new Promise(resolve => setTimeout(resolve, 700))
             setCount(3)
 
-            await new Promise(resolve => setTimeout(resolve,1000))
+            await new Promise(resolve => setTimeout(resolve, 1000))
             component('result')
         }
         catch (err: any) {
-            console.error("Error:", err);
+            // console.error("Error:", err.response?.data);
+            // console.error("Error:", err);
+
+            // console.log("Backend error:", err.response?.data)
+            toast.error(err.response?.data.error)
+
+            component('')
+            setCount(0)
+
         }
-        
+
 
     }
 
