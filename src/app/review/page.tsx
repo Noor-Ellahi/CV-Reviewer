@@ -8,6 +8,8 @@ import LoadingScreen from "@/components/LoadingScreen/LoadingScreen";
 import Navbar from "@/components/Navbar/Navbar";
 import { ResultComponent } from "@/components/ResultComponent/ResultComponent";
 import UploadComp from "@/components/UploadComp/UploadComp";
+import { useReviewContext } from "@/context/reviewContext";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 interface MatchDetails {
@@ -105,9 +107,12 @@ export interface ResumeHolder {
 export default function UploadPage() {
   const [loading, setLoading] = useState(null)
 
+  const router = useRouter()
+
   const [cvData, setCvData] = useState<ResumeHolder | null>(null)
   const [loadCounter, setLoadCounter] = useState<number>(0)
   const [currentComponent, setCurrentComponent] = useState('')
+
 
 
 
@@ -125,7 +130,7 @@ export default function UploadPage() {
             <>
               <Navbar />
               <UploadComp setCvData={setCvData} component={setCurrentComponent} count={loadCounter} setCount={setLoadCounter} />
-              <HowItWorks/>
+              <HowItWorks />
               <Footer />
             </>
           )
@@ -156,7 +161,10 @@ export default function UploadPage() {
           ) : null
       }
 
-      <button onClick={() => console.log(cvData)}>CLICK ME</button>
-    </main>
+      <button onClick={() =>
+        // console.log(cvData)
+        router.push('/optimize')
+      }>CLICK ME</button>
+    </main >
   );
 }

@@ -19,50 +19,50 @@ const LLM = new GoogleGenAI({
 
 
 
-async function validation(jD: string, cV: string) {
+// async function validation(jD: string, cV: string) {
 
 
-    const prompt = `
-You are an input validator for an AI CV reviewer.
+//     const prompt = `
+// You are an input validator for an AI CV reviewer.
 
-Determine whether each input is valid.
+// Determine whether each input is valid.
 
-CV:
-${cV}
+// CV:
+// ${cV}
 
-Job Description:
-${jD}
+// Job Description:
+// ${jD}
 
-Return ONLY JSON:
+// Return ONLY JSON:
 
-{
-  "isValidCV": boolean,
-  "cvReason": string,
-  "isValidJobDescription": boolean,
-  "jobDescriptionReason": string
-}
-`;
+// {
+//   "isValidCV": boolean,
+//   "cvReason": string,
+//   "isValidJobDescription": boolean,
+//   "jobDescriptionReason": string
+// }
+// `;
 
 
-    const res = await LLM.models.generateContent({
-        model: "gemini-3.1-flash-lite",
-        contents: prompt,
-    })
+//     const res = await LLM.models.generateContent({
+//         model: "gemini-3.1-flash-lite",
+//         contents: prompt,
+//     })
 
-    let text = res.candidates?.[0]?.content?.parts?.[0]?.text;
+//     let text = res.candidates?.[0]?.content?.parts?.[0]?.text;
 
-    if (!text) {
-        throw new Error("No validation response from AI");
-    }
+//     if (!text) {
+//         throw new Error("No validation response from AI");
+//     }
 
-    text = text
-        .replace(/^```json\s*/, "")
-        .replace(/\s*```$/, "")
-        .trim();
+//     text = text
+//         .replace(/^```json\s*/, "")
+//         .replace(/\s*```$/, "")
+//         .trim();
 
-    return JSON.parse(text);
+//     return JSON.parse(text);
 
-}
+// }
 
 
 export async function POST(req: Request) {
@@ -278,7 +278,7 @@ And for jobRequirements try to give skill as in React, Next etc and for point gi
 
 
         return new Response(
-            JSON.stringify({ data: validate }),
+            JSON.stringify({ data: validate, resumeText : resumeText }),
             { status: 200 }
         )
     }

@@ -30,9 +30,12 @@
 
 
 
+
+
 import type { Metadata, Viewport } from 'next'
 import './globals.css'
 import { Toaster } from 'sonner'
+import { ReviewProvider } from '@/context/reviewContext'
 
 export const metadata: Metadata = {
   title: 'MatchAJob — Find the match in your CV',
@@ -73,8 +76,9 @@ export default function RootLayout({
   return (
     <html lang="en" className="bg-background">
       <body className="font-sans antialiased">
-        {children}
-
+        <ReviewProvider>
+          {children}
+        </ReviewProvider>
         <Toaster position='top-right'/>
         
       </body>

@@ -12,6 +12,7 @@ import axios from "axios";
 import { ResumeHolder } from "@/app/review/page";
 
 import { toast } from "sonner";
+import { useReviewContext } from "@/context/reviewContext";
 
 
 type States = {
@@ -26,6 +27,9 @@ const UploadComp = (
 
     { component, count, setCount, setCvData }: States
 ) => {
+
+
+    const { setReviewData, setJDText, setReviewText } = useReviewContext()
 
     // const fileInputRef = useRef<HTMLInputElement>(null);
 
@@ -101,6 +105,13 @@ const UploadComp = (
             );
             // console.log("Response:", res.data);
             setCvData(res.data.data)
+
+            // Context
+            setReviewData(res.data.data)
+            setJDText(jobDescription)
+            setReviewText(res.data.resumeText)
+
+
             if (fileRef.current) {
                 fileRef.current.value = "";
             }
@@ -108,6 +119,8 @@ const UploadComp = (
 
             await new Promise(resolve => setTimeout(resolve, 700))
             setCount(3)
+
+
 
             await new Promise(resolve => setTimeout(resolve, 1000))
             component('result')
