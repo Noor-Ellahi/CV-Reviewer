@@ -2,18 +2,18 @@
 
 A smart, **Next.js and Google Gemini-powered CV review application** built to help job seekers beat the ATS (Applicant Tracking System) algorithm. It analyzes resumes against specific job descriptions to find missing keywords and optimize application success.
 
-🚀 **Live Demo:** [comparecv.vercel.app](https://vercel.app)
+ **Live Demo:** [comparecv.vercel.app](https://vercel.app)
 
 ---
 
-## 📌 The Problem & The Solution
+## The Problem & The Solution
 
 * **The Problem:** Job seekers apply to dozens of roles on LinkedIn and Indeed but rarely hear back. This is because recruiters use automated ATS scanners that filter out CVs before a human ever sees them. It is hard to "sell" your CV if the system rejects it instantly.
 * **The Solution:** This project bridges that gap. It provides a direct, instant comparison between a user's CV and a target Job Description. It highlights **missed keywords**, gaps in phrasing, and gives actionable feedback to improve readability for both algorithms and recruiters.
 
 ---
 
-## 🛠️ Tech Stack
+## Tech Stack
 
 * **Framework:** Next.js
 * **AI Engine:** Google Gemini API 
@@ -21,7 +21,7 @@ A smart, **Next.js and Google Gemini-powered CV review application** built to he
 
 ---
 
-## 🧠 Core Engineering & What I Learned
+## Core Engineering & What I Learned
 
 Building this project served as a deep dive into AI integration and full-stack architecture:
 * **LLM Workflows:** Mastered how to structure the workflow between user inputs (CV text + Job Description) and the AI model.
@@ -30,7 +30,7 @@ Building this project served as a deep dive into AI integration and full-stack a
 
 ---
 
-## 🔮 Roadmap & Upcoming Features (In Progress)
+##  Roadmap & Upcoming Features (In Progress)
 
 The project is actively being developed. I am currently working on a smart **CV Optimization** engine:
 * **Auto-Optimization:** A feature that updates keywords and phrasing to match the job description dynamically.
@@ -40,7 +40,7 @@ The project is actively being developed. I am currently working on a smart **CV 
 
 ---
 
-## 📦 Local Installation & Setup
+## Local Installation & Setup
 
 Follow these steps to run the project locally on your machine:
 
